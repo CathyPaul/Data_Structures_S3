@@ -1,0 +1,50 @@
+//Serialization deserializationexample
+import java.io.*;
+class Person implements Serializable
+{	private int age;
+	private String name;
+	public Person(String nam,int ag)
+	{
+		name=nam;
+		age=ag;
+	}
+	public void display()
+	{
+		System.out.println("Name="+name);
+		System.out.println("Age="+age);
+	}
+}
+class SerializeDeserializeEg
+{
+	public static void main(String args[]) throws ClassNotFoundException
+	{
+		System.out.println("Serialization of person object to bytes");	
+		try
+		{
+			Person p=new Person("Anu",12);
+			FileOutputStream fout=new FileOutputStream("Person.txt");
+			ObjectOutputStream obj=new ObjectOutputStream(fout);
+			obj.writeObject(p);
+			fout.close();
+		}
+		catch(IOException ie)
+		{
+			System.out.println("IOException occured ="+ ie);
+		}
+		{
+		System.out.println("DeSerialization ");	
+		try
+		{
+			Person p1=null;
+			FileInputStream fin=new FileInputStream("Person.txt");
+			ObjectInputStream obj1=new ObjectInputStream(fin);
+			p1=(Person)obj1.readObject();
+			p1.display();
+			fin.close();
+		}
+		catch(IOException ie)
+		{
+			System.out.println("IOException occured ="+ ie);
+		}
+	}
+}
